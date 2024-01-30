@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Post {
-    ArrayList<Post> postArrayList = new ArrayList<Post>();
+    static ArrayList<Post> postArrayList = new ArrayList<Post>();
     private static double totalPostNumber;
     private User ownerUser;
     private String postString;
@@ -89,10 +89,11 @@ public class Post {
     public void setCommentArr(Comment comment){
         (this.commentArr).add(comment);
     }
-    public void showPost(User user){
+    public static void showPost(User user){
         System.out.println("*-----*");
         for(Post posts : postArrayList){
             if (user.getUserId() != posts.getOwnerUser().getUserId()){
+                // type of ownereUser is User
                 System.out.println(posts.getOwnerUser().getUserName());
                 System.out.println(posts.getPostString());
                 System.out.println(posts.getPostId());
@@ -100,7 +101,7 @@ public class Post {
             }
         }
     }
-    public void showInfoPost(double postId){
+    public static void showInfoPost(double postId){
         for (Post posts : postArrayList){
             if (posts.getPostId()==postId){
                 System.out.println(posts.getBookmarkNumber()+" Bookmarked!");
@@ -111,12 +112,13 @@ public class Post {
             }
         }
     }
-    public void showComments(double postId){
+    public static void showComments(double postId){
         System.out.println("*-----*");
         for (Post posts : postArrayList) {
             if (posts.getPostId() == postId) {
                 for (Comment comment: posts.getCommentArr()){
                     if (comment.getPostId()==postId){
+                        System.out.println(User.returnUserById(comment.getCommentOwnerId())+" :");
                         System.out.println(comment.getCommentString());
                         System.out.println("*-----*");
                     }
@@ -134,19 +136,21 @@ public class Post {
         return postArrayList.get(0);
 
     }
+
     public void likePost(User user, double postId){
         Post post = returnPostById(postId);
         post.setLikeNumber(true);
     }
+
     public void disLikePost(User user, double postId){
         Post post = returnPostById(postId);
         post.setLikeNumber(false);
     }
+
     public void repostPost(User user, double postId){
         Post post = returnPostById(postId);
         post.setRepostNumber(true);
         user.setPost(post);
-
     }
 }
 

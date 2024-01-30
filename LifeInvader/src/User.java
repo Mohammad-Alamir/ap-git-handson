@@ -87,6 +87,7 @@ public class User {
         this.location = location;
     }
 
+
     public double getFollowerNumber() {
         return followerNumber;
     }
@@ -136,13 +137,42 @@ public class User {
     public void setPostIdArr(ArrayList<User> postIdArr) {
         this.postIdArr = postIdArr;
     }
+
     public void setPost(Post post){
         this.userPostArrayList.add(post);
     }
+
     public void deletePost(Post post){
         this.userPostArrayList.remove(post);
     }
+
     public double postNumberOfUser(){
         return this.userPostArrayList.size();
+    }
+
+    public static User returnUserById(double userId){
+        for (User user : User.userArrayList){
+            if (user.getUserId()==userId){
+                return user;
+            }
+        }
+        return userArrayList.get(0);
+    }
+
+    public static User returnUserByEmail(String email){
+        for (User user : User.userArrayList){
+            if(user.getEmail() == email){
+                return user;
+            }
+        }
+        return User.userArrayList.get(0);
+    }
+    public static boolean isEmailSigned(String email){
+        for (User user : userArrayList){
+            if(user.getEmail() == email){
+                return true;
+            }
+        }
+        return false;
     }
 }
