@@ -6,4 +6,8 @@ Post
 Comment
 each post has states including owner, likes, comment,etc.
 each user has states like userId userName,...
-more informations such as sequance diagram, user story, class diagram are available on courseware (quera)
+at home page you should sign in first if you signed up
+then you can access posts, users,settirg,Profiles,...
+going to setting you'll be able to change your profile such as password, birthday,...
+more informations such as user story, class diagram are available on courseware (quera)
+![Sequence diagram](https://github.com/Mohammad-Alamir/ap-git-handson/assets/149146829/f51a7e1f-4579-407f-9c3e-e990b6c66d1d)
