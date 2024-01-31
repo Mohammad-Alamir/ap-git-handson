@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class User {
+    //define state of users
     private static ArrayList<User> userArrayList = new ArrayList<User>();
     private static double totalUserNumber;
     private String userName;
