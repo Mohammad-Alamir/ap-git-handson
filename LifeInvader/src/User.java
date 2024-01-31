@@ -13,9 +13,9 @@ public class User {
     private double followerNumber;
     private double followingNumber;
     private ArrayList<Post> userPostArrayList = new ArrayList<Post>();
-    private ArrayList<User> followingArr = new ArrayList<User>();
-    private ArrayList<User> followerArr = new ArrayList<User>();
-    private ArrayList<User> postIdArr = new ArrayList<User>();
+    private ArrayList<User> followingArr;
+    private ArrayList<User> followerArr;
+    private ArrayList<User> postIdArr;
 
     //constructor method
     public User(String userName, String bio, String email, String password, String birthDay, String location) {
@@ -57,14 +57,6 @@ public class User {
 
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public void setPassword(String password) {
@@ -118,8 +110,13 @@ public class User {
         return followingArr;
     }
 
-    public void setFollowingArr(ArrayList<User> followingArr) {
-        this.followingArr = followingArr;
+    public void setFollowingArr(User follower, boolean toFollow) {
+        if (toFollow) {
+            this.followingArr.add(follower);
+        }
+        else{
+            this.followingArr.remove((follower));
+        }
     }
 
     public ArrayList<User> getFollowerArr() {
@@ -127,12 +124,14 @@ public class User {
     }
 
     public void setFollowerArr(User follower,boolean followed) {
-        this.followerArr.add(follower);
+        if (followed) {
+            this.followerArr.add(follower);
+        }
+        else{
+            this.followerArr.remove(follower);
+        }
     }
 
-    public ArrayList<User> getPostIdArr() {
-        return postIdArr;
-    }
 
     public void setPostIdArr(ArrayList<User> postIdArr) {
         this.postIdArr = postIdArr;
@@ -142,7 +141,8 @@ public class User {
         this.userPostArrayList.add(post);
     }
 
-    public void deletePost(Post post){
+    public void deletePost(double postId){
+        Post post = Post.returnPostById(postId);
         this.userPostArrayList.remove(post);
     }
 
@@ -167,6 +167,16 @@ public class User {
         }
         return User.userArrayList.get(0);
     }
+
+    public static User returnUserByUserName(String userName){
+        for (User user : User.userArrayList){
+            if(user.getEmail() == userName){
+                return user;
+            }
+        }
+        return User.userArrayList.get(0);
+    }
+
     public static boolean isEmailSigned(String email){
         for (User user : userArrayList){
             if(user.getEmail() == email){
@@ -174,5 +184,27 @@ public class User {
             }
         }
         return false;
+    }
+    public static boolean hasFollowed(User currentUser, String userName){
+        for(User user : currentUser.followingArr){
+            if (user.getUserName() == userName){
+                return true;
+            }
+        }
+        return false;
+    }
+    public void follow(String userName){
+        this.setFollowingNumber(true);
+        User followedUser = returnUserByUserName(userName);
+        followedUser.setFollowerNumber(true);
+        followedUser.setFollowerArr(this,true);
+        this.setFollowingArr(followedUser,true);
+    }
+    public void unFollow(String userName){
+        User unFollowUser = returnUserByUserName(userName);
+        this.setFollowingNumber(false);
+        unFollowUser.setFollowerNumber(false);
+        unFollowUser.setFollowerArr(this,false);
+        this.setFollowingArr(unFollowUser,false);
     }
 }

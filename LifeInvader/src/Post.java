@@ -14,6 +14,7 @@ public class Post {
     //constructor method
     public Post(double ownerId, String postString){
         Post.totalPostNumber += 1;
+        this.ownerUser = User.returnUserById(ownerId);
         this.postString = postString;
         this.postId = Post.totalPostNumber;
         this.likeNumber = 0;
@@ -53,10 +54,6 @@ public class Post {
 
 
     //setter methods
-    public void setPostId(double postId){
-        this.postId=postId;
-    }
-
     public void setBookmarkNumber(boolean isBookmarked){
         if (isBookmarked){
             this.bookmarkNumber += 1;
@@ -105,7 +102,7 @@ public class Post {
         for (Post posts : postArrayList){
             if (posts.getPostId()==postId){
                 System.out.println(posts.getBookmarkNumber()+" Bookmarked!");
-                System.out.println(posts.likeNumber+" Liked!");
+                System.out.println(posts.getLikeNumber()+" Liked!");
                 System.out.println(posts.getRepostNumber()+" Times reposted!");
                 System.out.println("*-----*");
                 break;
@@ -127,7 +124,7 @@ public class Post {
         }
     }
 
-    private Post returnPostById(double postId){
+    static Post returnPostById(double postId){
         for (Post posts : postArrayList) {
             if (posts.getPostId() == postId) {
                 return posts;
@@ -137,12 +134,12 @@ public class Post {
 
     }
 
-    public void likePost(User user, double postId){
+    public static void likePost(double postId){
         Post post = returnPostById(postId);
         post.setLikeNumber(true);
     }
 
-    public void disLikePost(User user, double postId){
+    public static void disLikePost(double postId){
         Post post = returnPostById(postId);
         post.setLikeNumber(false);
     }

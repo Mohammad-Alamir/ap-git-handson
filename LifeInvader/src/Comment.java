@@ -7,7 +7,6 @@ public class Comment {
     private final double postId;
     private final double commentOwnerId;
     private final String commentString;
-    private double commentLikeNumber;
 
     public Comment(double postId, double commentOwnerId, String commentString) {
         Comment.totalCommentNumber += 1;
@@ -15,7 +14,6 @@ public class Comment {
         this.commentId = Comment.totalCommentNumber;
         this.commentOwnerId = commentOwnerId;
         this.commentString = commentString;
-        this.commentLikeNumber = 0;
         Comment.commentArrayList.add(this);
     }
 
@@ -24,9 +22,6 @@ public class Comment {
         return postId;
     }
 
-    public double getCommentId() {
-        return commentId;
-    }
 
     public double getCommentOwnerId() {
         return commentOwnerId;
@@ -36,20 +31,4 @@ public class Comment {
         return commentString;
     }
 
-    public double getCommentLikeNumber() {
-        return commentLikeNumber;
-    }
-
-    //setter method
-    public void setCommentLikeNumber(boolean isLiked) {
-        if (isLiked){
-         this.commentLikeNumber += 1;
-        }
-        else{
-            this.commentLikeNumber -= 1;
-        }
-    }
-    public void deleteComment(Comment comment){
-        commentArrayList.remove(comment);
-    }
 }
